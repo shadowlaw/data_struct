@@ -25,7 +25,8 @@ class BST:
 
     def insert(self, value):
         if self.root.value is None:
-            self.root.value = value
+            self.root.value = BST(value)
+            return
 
         insertion_point = self.search(value)
 
