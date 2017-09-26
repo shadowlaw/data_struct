@@ -58,7 +58,7 @@ class BST:
 
         :param
         value - value to be inserted
-        
+
         '''
         if self.root is None:
             self.root = Node(value)
