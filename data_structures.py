@@ -43,13 +43,3 @@ class BST:
             node.right = BST(value)
         elif status == 'left':
             node.left = BST(value)
-
-
-bst = BST()
-bst.insert(2)
-bst.insert(3)
-bst.insert(1)
-bst.insert(9)
-bst.insert(4)
-bst.insert(-1)
-
