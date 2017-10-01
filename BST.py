@@ -140,6 +140,18 @@ class BST:
             else:
                 to_remove.root.parent.right = None
 
+        def replace_with_successor(node, successor):
+            node.root.value = successor.root.value
+            if successor.right is not None:
+                if successor.root.name == 'left':
+                    successor.root.parent.left = successor.right
+                else:
+                    successor.root.parent.right = successor.right
+                    successor.root.parent = None
+
+                if successor.is_leaf():
+                    remove_node(successor)
+
         node, status = self.search(value)
 
         if status != 'found':
@@ -152,18 +164,7 @@ class BST:
 
             if node.right is not None:
                 successor = node.successor()
-                node.root.value = successor.root.value
-
-                if successor.right is not None:
-                    if successor.root.name == 'left':
-                        successor.root.parent.left = successor.right
-                    else:
-                        successor.root.parent.right = successor.right
-
-                    successor.root.parent = None
-
-                if successor.is_leaf():
-                    remove_node(successor)
+                replace_with_successor(node, successor)
 
                 return True
             else:
@@ -181,18 +182,7 @@ class BST:
 
         if node.right is not None:
             successor = node.successor()
-            node.root.value = successor.root.value
-
-            if successor.right is not None:
-                if successor.root.name == 'left':
-                    successor.root.parent.left = successor.right
-                else:
-                    successor.root.parent.right = successor.right
-
-                successor.root.parent = None
-
-            if successor.is_leaf():
-                remove_node(successor)
+            replace_with_successor(node, successor)
 
             return True
         elif node.left is not None:
