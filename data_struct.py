@@ -113,7 +113,18 @@ class BST:
         :return
         returns successor for node passed, false otherwise.
         """
-        pass
+        if self.right is None:
+            return False
+
+        if self.right.left is None:
+            return self.right
+
+        temp_node = self.right.left
+
+        while temp_node.left is not None:
+            temp_node = temp_node.left
+
+        return temp_node
 
     def delete_node(self, value):
         """Locates node to be removed.
@@ -132,9 +143,9 @@ class BST:
             to_remove - node to be removed.
             """
             if to_remove.root.name == "left":
-                node.root.parent.left = None
+                to_remove.root.parent.left = None
             else:
-                node.root.parent.right = None
+                to_remove.root.parent.right = None
 
         node, status = self.search(value)
 
@@ -147,32 +158,57 @@ class BST:
                 return True
 
             if node.right is not None:
-                pass
+                successor = node.successor()
+                node.root.value = successor.root.value
+
+                if successor.right is not None:
+                    if successor.root.name == 'left':
+                        successor.root.parent.left = successor.right
+                    else:
+                        successor.root.parent.right = successor.right
+
+                    successor.root.parent = None
+
+                if successor.is_leaf():
+                    remove_node(successor)
+
+                return True
             else:
-                node.left.root.name = 'root'
-                node.left.root.parent = None
-                return node.left
+                node.root.value = node.left.root.value
+                node.left = node.left.left
+
+                if node.left is not None:
+                    node.left.root.parent = node
+
+                return True
 
         if node.is_leaf():
             remove_node(node)
             return True
 
         if node.right is not None:
-            pass
-            # find node successor
-            # replace node with successor
+            successor = node.successor()
+            node.root.value = successor.root.value
+
+            if successor.right is not None:
+                if successor.root.name == 'left':
+                    successor.root.parent.left = successor.right
+                else:
+                    successor.root.parent.right = successor.right
+
+                successor.root.parent = None
+
+            if successor.is_leaf():
+                remove_node(successor)
+
+            return True
         elif node.left is not None:
             node.left.root.parent = node.root.parent
             node.root.parent.left = node.left
-            node.left = None
-            node.root.parent = None
             return True
 
 bst = BST()
-bst.insert(3)
-bst.insert(2)
-bst.insert(1)
-bst.insert(0)
-
+[bst.insert(x) for x in [2,1,0,1.5,3,4,5,3.5,3.6]]
 bst.delete_node(2)
-print("Finished")
+n, s = bst.search(3)
+print(s + " of "+str(n.root.value))
