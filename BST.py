@@ -1,11 +1,4 @@
-"""Implements data basic structures
-
-Data Structures implemented:
-- Binary Search Tress (BST - Node class required for use.)
-- Red Black Trees (RBT - Node class requited for use.)
-- Binary Heaps (BH - Node class required for use)
-- Stacks
-"""
+"""Implements Binary search tree data structure (Node class needed for implementation)."""
 
 
 class Node:
