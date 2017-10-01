@@ -207,8 +207,3 @@ class BST:
             node.root.parent.left = node.left
             return True
 
-bst = BST()
-[bst.insert(x) for x in [2,1,0,1.5,3,4,5,3.5,3.6]]
-bst.delete_node(2)
-n, s = bst.search(3)
-print(s + " of "+str(n.root.value))
