@@ -1,4 +1,4 @@
-"""Implements Binary search tree data structure (Node class needed for implementation)."""
+""" Implements Binary search tree data structure (Node class needed for implementation)."""
 
 
 class Node:
