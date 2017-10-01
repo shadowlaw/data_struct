@@ -40,6 +40,9 @@ class BST:
             self.left = None
             self.right = None
 
+    def is_root(self):
+        return True if self.root.name == "root" else False
+
     def is_empty(self):
         """Returns True if the tree is empty, false otherwise."""
 
@@ -119,7 +122,7 @@ class BST:
         value - value of the node to be removed
 
         :return
-        returns true on successful deletion, false if node is not found.
+        returns True on successful node removal, False if node is not found.
         """
 
         def remove_node(to_remove):
@@ -138,6 +141,18 @@ class BST:
         if status != 'found':
             return False
 
+        if node.is_root():
+            if node.is_leaf():
+                node.root = BST()
+                return True
+
+            if node.right is not None:
+                pass
+            else:
+                node.left.root.name = 'root'
+                node.left.root.parent = None
+                return node.left
+
         if node.is_leaf():
             remove_node(node)
             return True
@@ -146,15 +161,18 @@ class BST:
             pass
             # find node successor
             # replace node with successor
-
-
+        elif node.left is not None:
+            node.left.root.parent = node.root.parent
+            node.root.parent.left = node.left
+            node.left = None
+            node.root.parent = None
+            return True
 
 bst = BST()
-bst.insert(2)
 bst.insert(3)
+bst.insert(2)
 bst.insert(1)
 bst.insert(0)
-bst.insert(4)
 
-print(bst.delete_node(4))
+bst.delete_node(2)
 print("Finished")
