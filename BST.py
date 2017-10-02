@@ -30,6 +30,7 @@ class BST:
             self.right = None
         else:
             self.root = Node(value)
+            self.root.name = "root"
             self.left = None
             self.right = None
 
@@ -189,4 +190,3 @@ class BST:
             node.left.root.parent = node.root.parent
             node.root.parent.left = node.left
             return True
-
