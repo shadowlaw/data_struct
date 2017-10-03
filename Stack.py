@@ -7,9 +7,6 @@ class Stack:
     def is_empty(self):
         return self.__holder == []
 
-    def stack(self):
-        return self.__holder
-
     def push(self, element):
         self.__holder.append(element)
         return True
@@ -20,11 +17,11 @@ class Stack:
         else:
             return False
 
-    def print_stack(self):
+    def stack(self):
         if self.is_empty():
             return "Stack is Empty."
         string = ""
         for x in range(len(self.__holder)):
-            string += " {0}".format(self.__holder[x])
+            string += "{0} ".format(self.__holder[x])
 
-        print(string+" <- Top")
+        return string+" <- Top"
