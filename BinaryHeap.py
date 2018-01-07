@@ -4,6 +4,7 @@ class Node:
         self.is_min = True
         self.left = None
         self.right = None
+        self.parent = None
 
 
 class Heap:
@@ -42,6 +43,16 @@ class Heap:
         return self.root.is_min is True
 
     def insert(self, value):
+
+        def bubble_up(insert_node):
+            if insert_node.is_min or insert_node.parent.value < insert_node.value:
+                return
+            else:
+                temp_node_value = insert_node.value
+                insert_node.value = insert_node.parent.value
+                insert_node.parent.value = temp_node_value
+                bubble_up(insert_node.parent)
+
         def add_to_queue(node):
             if node.left is not None and node.left not in self.__level_queue:
                 self.__level_queue.put(node.left)
@@ -54,14 +65,18 @@ class Heap:
 
         if self.__add_to == 'left':
             self.__node_add_to.left = Node(value)
+            self.__node_add_to.left.parent = self.__node_add_to
             self.__node_add_to.left.is_min = False
+            bubble_up(self.__node_add_to.left)
             self.__add_to = "right"
             add_to_queue(self.__node_add_to)
             return True
 
         elif self.__add_to == 'right':
             self.__node_add_to.right = Node(value)
+            self.__node_add_to.right.parent = self.__node_add_to
             self.__node_add_to.right.is_min = False
+            bubble_up(self.__node_add_to.right)
             self.__add_to = "left"
             add_to_queue(self.__node_add_to)
 
@@ -70,10 +85,5 @@ class Heap:
 
             return True
 
-
-h = Heap()
-h.insert(2)
-h.insert(8)
-h.insert(9)
-h.insert(10)
-print("")
+    def show_min(self):
+        return self.root.value
